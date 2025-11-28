@@ -1,0 +1,24 @@
+name: CI pipeline
+
+on: # Trigger the workflow on push or pull request events to the main branch
+    push: # Trigger on push events
+        branches: [ main ] # Specify the branch to monitor
+
+jobs: # Define the job to run
+    build: # Name of the job
+      runs-on: ubuntu-latest # Use the latest Ubuntu runner
+    
+      steps: # Define the steps of the job
+        - name: Checkout_code # Step to checkout the repository code
+          uses: actions/checkout@v5 # Use the checkout action
+
+        - name: Set_up_Node.js # Step to set up Node.js environment
+          uses: actions/setup-node@v3 # Use the setup-node action
+          with:
+            node-version: '16' # Specify the Node.js version
+          
+        - name: Install_dependencies # Step to install project dependencies
+          run: npm install # Run npm install to install dependencies
+          
+        - name: Run_tests # Step to run tests
+          run: npm test # Run the test script defined in package.json
